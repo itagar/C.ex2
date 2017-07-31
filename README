@@ -1,0 +1,77 @@
+itagar
+305392508
+Itai Tagar
+
+
+===================================================
+=  README for ex2: CheckDependency, MyLinkedList  =
+===================================================
+
+
+==================
+=  Files:        =
+==================
+CheckDependency.c
+MyLinkedList.c
+valdbg_check_dependency.out
+valdbg_list_example.out
+Makefile
+README
+
+==================
+=  Description:  =
+==================
+CheckDependency:    A program that determines if a given file declares a cyclic dependency.
+                    Input:      A name or a path to a text file.
+                    Process:    Validates input, if the input is valid the program starts to analyze
+                                the text file for determine if there is a cyclic dependency.
+                                It first process all the data in the given file, and store it in the
+                                memory, then it uses all the processed data to analyze the
+                                dependency. If the file is invalid the program ends with an
+                                error message.
+                                Algorithm Description:
+                                In order to determine cyclic dependency, the program use the
+                                DFS Algorithm. The program stores in an array all the Files that
+                                appeared in the file. Each File is a struct which holds it's
+                                dependencies. Using this array of Files, the algorithm can use
+                                DFS as learned in DaSt lessons. We create another 2 arrays -
+                                'visited' and 'current'. If a File is in 'visited' it means
+                                we visited it and also all of it's neighbours, so all the Files
+                                in 'visited' are irrelevant for the continue of the Algorithm.
+                                If the File we are currently called DFS on is in 'current' array,
+                                we can determine that there is a cycle and finish the run.
+                    Output:     A message that states the cyclic dependency result, if the input
+                                was valid. An error message in case of bad input.
+MyLinkedList:       A program for a Linked List data structure and support several operations on it.
+                    Input:      No particular input.
+                    Process:    The program handles the entire process of several operations on a
+                                Linked List. The user is revealed only to a Pointer for a
+                                Linked List, and all the Data Structure and the functions
+                                implementation are hidden.
+                    Output:     Depends on the specific driver that used these operations.
+
+==================
+=  Answers:      =
+==================
+1.  The disadvantages of implementing the MyLinkedList struct in the 'MyLinkedList.h' is that it
+    does not satisfy a modular program, i.e. everyone that will use 'MyLinkedList.h' will be forced
+    with the implementation of the given MyLinkedList struct.
+    Therefore the header file does not stand as an interface that only declaring the struct but
+    leaves to the user the freedom to change it's implementation, which is poor modularity.
+    For example, whenever the implementation of the struct is due to
+    change, all the users of MyLinkedList.h need to update their program to the change.
+    Also, when implementing the MyLinkedList struct in the 'MyLinkedList.h', we share our
+    implementation to all the users who use this header file, and by that hurting the encapsulation
+    of our program, and the Information Hiding Principle.
+
+2.  The compilation succeed because it doesn't really need to know the size of MyLinkedList struct,
+    it only define a Pointer to that struct, and the size of Pointer, which is known
+    at compile time as we learned, does not depend on the size of the object it points to.
+    Moreover, even if it was a declaration of the struct itself, the compilation is going to succeed
+    because this part of finding the struct implementation and allocating memory for it is part
+    of the Linkage, which comes after the Compiling (and Pre-Processor) phase.
+    In our case, the struct implemented in the .c file is in the same translation
+    unit with the .h file. In case of no implementation for this struct, we will receive a
+    Linkage error and not compiler error.
+
+
